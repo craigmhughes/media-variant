@@ -1,0 +1,1 @@
+export type ScreenSize = "xxl" | "xl" | "lg" | "md" | "sm";

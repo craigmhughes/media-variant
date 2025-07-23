@@ -1,9 +1,9 @@
-import { createContext, PropsWithChildren, useContext } from "react";
+import { createContext, useContext } from "react";
+import type { PropsWithChildren } from "react";
 import { useMediaQuery } from "react-responsive";
+import type { ScreenSize } from "../types";
 
 const MAX_SAFE_INTEGER = 99999;
-
-export type ScreenSize = "xxl" | "xl" | "lg" | "md" | "sm";
 
 export type ScreenSizeContextType = {
   /** The currently active screen size based on media queries. */
@@ -44,10 +44,6 @@ export function useScreenSize(): ScreenSize {
 }
 
 interface ScreenSizeProviderProps {
-  /**
-   * Optional user-defined breakpoint widths.
-   * If not provided, default Tailwind-style breakpoints are used.
-   */
   sizes?: Record<ScreenSize, number>;
 }
 

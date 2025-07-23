@@ -1,0 +1,42 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build output
+dist/
+build/
+lib/
+.esbuild/
+.turbo/
+.cache/
+coverage/
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test
+coverage/
+*.lcov
+
+# TypeScript
+*.tsbuildinfo
+
+# Env
+.env
+.env.*.local
+
+# Logs
+*.log
+
+# Others
+*.tgz
