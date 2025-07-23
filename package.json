@@ -1,14 +1,35 @@
 {
   "name": "media-variant",
+  "author": "Craig Hughes",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./react": {
+      "import": "./dist/react.js",
+      "types": "./dist/react.d.ts"
+    }
+  },
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "splitting": false,
+    "sourcemap": true,
+    "clean": true
+  },
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf ./dist && tsup",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.12.1",
   "dependencies": {
@@ -16,6 +37,8 @@
     "react-responsive": "^10.0.1"
   },
   "devDependencies": {
-    "@types/react": "^19.1.8"
+    "@types/react": "^19.1.8",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
   }
 }
