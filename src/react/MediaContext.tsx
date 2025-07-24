@@ -1,13 +1,20 @@
 import { createContext, useContext } from "react";
 import type { PropsWithChildren } from "react";
 import { useMediaQuery } from "react-responsive";
-import type { ScreenSize } from "../types";
+import type { Breakpoints, ScreenSize } from "../types";
 
-const MAX_SAFE_INTEGER = 99999;
+const defaultSizes: Breakpoints = {
+  xxl: 1536,
+  xl: 1280,
+  lg: 1024,
+  md: 768,
+  sm: 640,
+}
 
 export type ScreenSizeContextType = {
   /** The currently active screen size based on media queries. */
   screenSize: ScreenSize;
+  breakpoints: Breakpoints;
 };
 
 /**
@@ -17,6 +24,7 @@ export type ScreenSizeContextType = {
  */
 export const ScreenSizeContext = createContext<ScreenSizeContextType>({
   screenSize: "sm",
+  breakpoints: defaultSizes,
 });
 
 /**
@@ -62,13 +70,14 @@ export function ScreenSizeProvider({
   sizes: userDefinedSizes,
 }: PropsWithChildren<ScreenSizeProviderProps>) {
   const sizes = {
-    xxl: userDefinedSizes?.xxl || 1536,
-    xl: userDefinedSizes?.xl   || 1280,
-    lg: userDefinedSizes?.lg   || 1024,
-    md: userDefinedSizes?.md   || 768,
+    xxl: userDefinedSizes?.xxl || defaultSizes.xxl,
+    xl: userDefinedSizes?.xl   || defaultSizes.xl,
+    lg: userDefinedSizes?.lg   || defaultSizes.lg,
+    md: userDefinedSizes?.md   || defaultSizes.md,
+    sm: userDefinedSizes?.sm   || defaultSizes.sm,
   };
 
-  const xxl = useMediaQuery({ maxWidth: MAX_SAFE_INTEGER, minWidth: sizes.xxl });
+  const xxl = useMediaQuery({ maxWidth: Number.MAX_SAFE_INTEGER, minWidth: sizes.xxl });
   const xl = useMediaQuery({  maxWidth: sizes.xxl  - 1,   minWidth: sizes.xl });
   const lg = useMediaQuery({  maxWidth: sizes.xl   - 1,   minWidth: sizes.lg });
   const md = useMediaQuery({  maxWidth: sizes.lg   - 1,   minWidth: sizes.md });
@@ -77,7 +86,7 @@ export function ScreenSizeProvider({
   const screenSize = findLargestScreenSizeMatch({ xxl, xl, lg, md, sm });
 
   return (
-    <ScreenSizeContext.Provider value={{ screenSize }}>
+    <ScreenSizeContext.Provider value={{ screenSize, breakpoints: sizes, }}>
       {children}
     </ScreenSizeContext.Provider>
   );
